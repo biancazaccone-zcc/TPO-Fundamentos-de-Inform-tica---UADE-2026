@@ -102,9 +102,9 @@ def agregarPKMN():
 def eliminarPKMN():
     liberar=[]
     for filas in matriz:
-        if fila[6]=="Liberado":
-            liberar.append(matriz[i]) #revisa toda la matriz, busca los pokemon liberados y los mete
-    print("Estos son los Pokémon que pueden eliminarse: ", liberar) #acá están los pokemon que se pueden liberar
+        if filas[6]=="Liberado":
+            liberar.append(matriz[i]) #revisa toda la matriz, busca los pokemon liberados y los mete en una lista aparte
+    print("Estos son los Pokémon que pueden eliminarse: ", liberar) #acá están los pokemon que se pueden eliminar
     print("en desarrollo")
 
 def modificarPKMN():
