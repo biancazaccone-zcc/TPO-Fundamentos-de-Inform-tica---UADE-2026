@@ -13,7 +13,7 @@ def pedir_accion():
     global accion
     mostrar_menu()
     accion = int(input("Accion a realizar: "))
-    while accion < 1 or accion > 5:        #Solo se permite realiza una accion entre las mostradas
+    while accion < 1 or accion > 5:        #Solo se permite realizar una accion entre las mostradas
         print("La accion no está entre las opciones, por favor elegir una mostrada en el menú.")   
         mostrar_menu()
         accion = int(input("Accion a realizar: "))
