@@ -1,4 +1,4 @@
-matriz=[]
+matriz=[["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]] #definimos los encabezados de la matriz
 filas=7
 
 def crearMatriz():
