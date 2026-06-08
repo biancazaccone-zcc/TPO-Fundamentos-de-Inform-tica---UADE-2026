@@ -186,5 +186,7 @@ def main():
             else:
                 verPKMN()
                 pedir_accion()
+
+    print("¡Hasta la próxima!")
                 
 main()
