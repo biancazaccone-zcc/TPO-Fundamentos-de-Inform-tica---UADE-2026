@@ -44,17 +44,6 @@ def mostrar_estados():
     print("· Liberado")
     print(" ")
 
-def mostrar_datos():
-    print(" ")
-    print("· Nombre")
-    print("· Tipo")
-    print("· Nivel")
-    print("· PC (Puntos de combate)")
-    print("· Entrenador")
-    print("· Victorias")
-    print("· Estado")
-    print(" ")
-
 def agregarPKMN(matriz):
     
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
