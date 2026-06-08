@@ -140,15 +140,25 @@ def eliminarPKMN():
 def modificarPKMN():
     print("en desarrollo")
 
-def verPKMN():
-    global matriz
-
+def verPKMN():        # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
+    global matriz     # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
+    
     # Mostramos el informe de pokémons en la matriz
     filas = len(matriz)
     columnas = len(matriz[0])
+
+    ancho_maximo = 0
     for f in range(filas):
         for c in range(columnas):
-            print("%3d" %matriz[f][c], end = "")
+            largo_actual = len(str(matriz[f][c]))
+            if largo_actual > ancho_maximo:
+                ancho_maximo = largo_actual
+
+    ancho_columna = ancho_maximo + 2
+
+    for f in range(filas):
+        for c in range(columnas):
+            print(f"{str(matriz[f][c]):>{ancho_columna}}", end="")
         print()
 
 def main():
@@ -162,15 +172,19 @@ def main():
     while accion != 5:
         if accion == 1:
             agregarPKMN()
+            pedir_accion()
 
         elif accion == 2:
             eliminarPKMN()
+            pedir_accion()
 
         else:
             if accion == 3:
                 modificarPKMN()
+                pedir_accion()
 
             else:
                 verPKMN()
+                pedir_accion()
                 
 main()
