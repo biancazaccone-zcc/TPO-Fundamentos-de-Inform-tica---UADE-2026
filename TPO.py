@@ -44,6 +44,17 @@ def mostrar_estados():
     print("· Liberado")
     print(" ")
 
+def mostrar_datos():
+    print(" ")
+    print("· Nombre")
+    print("· Tipo")
+    print("· Nivel")
+    print("· PC (Puntos de combate)")
+    print("· Entrenador")
+    print("· Victorias")
+    print("· Estado")
+    print(" ")
+
 def agregarPKMN(matriz):
     
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
@@ -140,7 +151,7 @@ def eliminarPKMN(matriz):
 
     if len(eliminables) == 0:
         print("NO hay pokémons eliminables, tienen que estar liberados para realizar esta acción")
-        return
+        return matriz
 
     else:
         opciones = []
@@ -158,11 +169,12 @@ def eliminarPKMN(matriz):
             accion = int(input("Ingresar nombre de pokémon a eliminar: "))
 
         if accion = "Ninguno":
-            return
+            return matriz
         else:
             for pokemon in matriz[1:]:
                 if pokemon[0] == accion:
                     matriz.remove(pokemon)
+            return matriz
 
 def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
                              # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
@@ -186,7 +198,6 @@ def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el inf
 
 def modificarPKMN(matriz):
     opciones_pokemon = []
-    opciones_dato = ()
     
     print("Las opciones para modificar son las siguientes:")
     print(" ")
@@ -197,20 +208,43 @@ def modificarPKMN(matriz):
         opciones_pokemon.append(fila[0])
         opciones_pokemon.append("Ninguno")
     
-    pokemon = str(input("Ingresar nombre del pokémon a eliminar o ¨Ninguno¨ para cancelar: "))
+    pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
 
     if pokemon == "Ninguno":
-        return
+        return matriz
 
     else:
+        elecciones_posibles = {}
+        
         while pokemon not in opciones:
             print("la opción elegida no existe")
             print("Las opciones para modificar son las siguientes:")
             print(" ")
             verPKMN(matriz)
-            pokemon = str(input("Ingresar nombre del pokémon a eliminar: "))
+            pokemon = str(input("Ingresar nombre del pokémon a modificar: "))
 
+        print("Las opciones para cambiar son las siguientes:")
+        print(" ")
         
+        i = 1
+        for POKE in opciones:
+            print(f"{i}.{POKE}")
+            elecciones_posibles[i] == POKE
+            i += 1
+        print(" ")
+        
+        eleccion = int(input("Ingresar elección de dato a modificar: "))
+        
+        while eleccion not in elecciones_posibles.keys:
+            print("La elección hecha no existe")
+            eleccion = int(input("Ingresar elección de dato a modificar: "))
+
+        pokemon_elegido = elecciones_posibles[eleccion]
+
+        for pokemon in matriz[0:]:
+            if pokemon[0] == pokemon_elegido:
+                matriz.remove(pokemon)
+        return matriz
 
 def main():
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
