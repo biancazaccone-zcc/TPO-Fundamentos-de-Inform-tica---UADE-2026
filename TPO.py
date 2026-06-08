@@ -1,3 +1,5 @@
+import random
+
 def mostrar_menu():
     print("--------------------------")
     print(" ")
@@ -58,25 +60,40 @@ def agregarPKMN(matriz):
             nombre = str(input("Nombre del pokémon: "))
 
     # Se pide TIPO
-    tipo = str(input("Tipo elemental: "))
+    tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨random¨): "))
     tipo.lower()
-    while tipo not in tipos_posibles:
-        print("El tipo no existe.")
-        mostrar_tipos()
-        tipo = str(input("Tipo elemental: "))
-        tipo.lower()
+
+    if tipo = "random":
+        tipo = random.choice(tipos_posibles)
+
+    else:
+        while tipo not in tipos_posibles:
+            print("El tipo no existe.")
+            mostrar_tipos()
+            tipo = str(input("Tipo elemental: "))
+            tipo.lower()
 
     # Se pide NIVEL
-    nivel = int(input("Nivel actual: "))
-    while nivel < 1 or nivel > 100:
-        print("El nivel ingresado no es posible, ingresar correctamente.")
-        nivel = int(input("Nivel actual: "))
+    nivel = input("Nivel actual (para valor aleatorio escribir ¨random¨): ")
+    
+    if nivel = "random":
+        nivel = random.randint(1, 100)
+
+    else:
+        while nivel < 1 or nivel > 100:
+            print("El nivel ingresado no es posible, ingresar correctamente.")
+            nivel = int(input("Nivel actual: "))
 
     # Se pide PUNTOS DE COMBATE
-    pc = int(input("Puntos de combate: "))
-    while pc < 0:
-        print("Los puntos de combate no pueden ser negativos, ingresar correctamente.")
-        pc = int(input("Puntos de combate: "))
+    pc = input("Puntos de combate (para valor aleatorio escribir ¨random¨): ")
+
+    if pc == "random":
+        pc = random.randint(1, 6000)
+
+    else:
+        while pc < 0:
+            print("Los puntos de combate no pueden ser negativos, ingresar correctamente.")
+            pc = int(input("Puntos de combate: "))
 
     # Se pide NOMBRE DEL ENTRENADOR
     entrenador = str(input("Entrenador: "))
@@ -85,19 +102,29 @@ def agregarPKMN(matriz):
         entrenador = str(input("Entrenador: "))
 
     # Se pide CANTIDAD DE VICTORIAS
-    victorias = int(input("Cantidad de batallas ganadas: "))
-    while victorias < 0:
-        print("El numero de victorias es imposible, ingresar correctamente.")
-        victorias = int(input("Cantidad de batallas ganadas: "))
+    victorias = input("Cantidad de batallas ganadas (para valor aleatorio escribir ¨random¨): ")
+    
+    if victorias = "random":
+        victorias = random.randint(0, 5000)
+
+    else:
+        while victorias < 0:
+            print("El numero de victorias es imposible, ingresar correctamente.")
+            victorias = int(input("Cantidad de batallas ganadas: "))
 
     # Se pide ESTADO
-    estado = str(input("Estado actual: "))
+    estado = str(input("Estado actual (para valor aleatorio escribir ¨random¨): "))
     estado.lower()
-    while estado not in estados_posibles:
-        print("El estado no existe")
-        mostrar_estados()
-        estado = str(input("Estado actual: "))
-        estado.lower()
+
+    if estado == "random":
+        estado = random.choice(estados_posibles)
+
+    else:
+        while estado not in estados_posibles:
+            print("El estado no existe")
+            mostrar_estados()
+            estado = str(input("Estado actual: "))
+            estado.lower()
 
     # Agregamos el pokémon a la matriz de datos
     matriz.append([nombre, tipo, nivel, pc, entrenador, victorias, estado])
@@ -133,12 +160,9 @@ def eliminarPKMN(matriz):
         if accion = "Ninguno":
             return
         else:
-            for pokemon in matriz:
+            for pokemon in matriz[1:]:
                 if pokemon[0] == accion:
                     matriz.remove(pokemon)
-
-def modificarPKMN(matriz):
-    mods_posibles = ()
 
 def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
                              # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
@@ -159,6 +183,34 @@ def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el inf
         for c in range(columnas):
             print(f"{str(matriz[f][c]):>{ancho_columna}}", end="")
         print()
+
+def modificarPKMN(matriz):
+    opciones_pokemon = []
+    opciones_dato = ()
+    
+    print("Las opciones para modificar son las siguientes:")
+    print(" ")
+    verPKMN(matriz)
+    print("Ninguno")
+
+    for fila in matriz[1:]:
+        opciones_pokemon.append(fila[0])
+        opciones_pokemon.append("Ninguno")
+    
+    pokemon = str(input("Ingresar nombre del pokémon a eliminar o ¨Ninguno¨ para cancelar: "))
+
+    if pokemon == "Ninguno":
+        return
+
+    else:
+        while pokemon not in opciones:
+            print("la opción elegida no existe")
+            print("Las opciones para modificar son las siguientes:")
+            print(" ")
+            verPKMN(matriz)
+            pokemon = str(input("Ingresar nombre del pokémon a eliminar: "))
+
+        
 
 def main():
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
