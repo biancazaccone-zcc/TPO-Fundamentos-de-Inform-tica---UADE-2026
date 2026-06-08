@@ -10,13 +10,13 @@ def mostrar_menu():
     print("--------------------------")
 
 def pedir_accion():
-    global accion
     mostrar_menu()
     accion = int(input("Accion a realizar: "))
     while accion < 1 or accion > 5:        #Solo se permite realizar una accion entre las mostradas
         print("La accion no está entre las opciones, por favor elegir una mostrada en el menú.")   
         mostrar_menu()
         accion = int(input("Accion a realizar: "))
+    return accion
 
 def mostrar_tipos():
     print("Tipos disponibles:")
@@ -42,17 +42,20 @@ def mostrar_estados():
     print("· Liberado")
     print(" ")
 
-def agregarPKMN():
-    global matriz
+def agregarPKMN(matriz):
     
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
     estados_posibles = ("disponible", "entrenamiento", "lesionado", "liberado")
     
     # Se pide NOMBRE
-    nombre = str(input("Nombre: "))
-    while not nombre.strip():
+    nombre = str(input("Nombre del pokémon: "))
+    while not nombre.strip():                # Se revisa que el nombre tenga contenido y no sea solo una entrada vacía
         print("El pokémon debe tener nombre.")
         nombre = str(input("Nombre: "))
+    for pokemon in matriz:
+        while pokemon[0] == nombre:
+            print("Ya hay un pokémon con este nombre, elija otro")
+            nombre = str(input("Nombre del pokémon: "))
 
     # Se pide TIPO
     tipo = str(input("Tipo elemental: "))
@@ -98,9 +101,9 @@ def agregarPKMN():
 
     # Agregamos el pokémon a la matriz de datos
     matriz.append([nombre, tipo, nivel, pc, entrenador, victorias, estado])
+    return matriz
 
-def eliminarPKMN():
-    global matriz
+def eliminarPKMN(matriz):
     
     eliminables = []
     
@@ -113,36 +116,32 @@ def eliminarPKMN():
         return
 
     else:
-        opciones = {}
+        opciones = []
         print("Lista de opciones:")
         
-        i = 1
         for ELIM in eliminables:
-            opciones[i] = ELIM
-            print(i,".",ELIM)
-            i += 1
+            print(ELIM[0])
+            opciones.append(ELIM[0])
+        print("Ninguno")
+        opciones.append("Ninguno")
+            
+        accion = int(input("Ingresar nombre de pokémon a eliminar: "))
+        while accion not in opciones:
+            print("Esa acción no es posible")
+            accion = int(input("Ingresar nombre de pokémon a eliminar: "))
 
-        opciones[i] = "Ninguno"
-        print(i,"Ninguno")
-
-        accion = int(input("Ingresar pokémon a eliminar: "))
-        
-        while accion < 0 or accion > i:
-            print("La opción no existe.")
-            accion = int(input("Ingresar pokémon a eliminar: "))
-
-        if accion == i:        # En caso de elegir la última opción (siempre va a ser "Ninguno") se vuelve al menú principal
+        if accion = "Ninguno":
             return
-
         else:
-            matriz.remove(opciones[accion])
+            for pokemon in matriz:
+                if pokemon[0] == accion:
+                    matriz.remove(pokemon)
 
-def modificarPKMN():
-    print("en desarrollo")
+def modificarPKMN(matriz):
+    mods_posibles = ()
 
-def verPKMN():        # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
-    global matriz     # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
-    
+def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
+                             # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
     # Mostramos el informe de pokémons en la matriz
     filas = len(matriz)
     columnas = len(matriz[0])
@@ -162,30 +161,28 @@ def verPKMN():        # Esta sección fue hecha con ia para mostra el informe de
         print()
 
 def main():
-    global matriz, accion
-
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
 
     print("Bienvenido, elija una accion:")
-    pedir_accion()        #Se pide una accion entre la 1 y la 5
+    accion = pedir_accion()        #Se pide una accion entre la 1 y la 5
 
     while accion != 5:
         if accion == 1:
-            agregarPKMN()
-            pedir_accion()
+            matriz = agregarPKMN(matriz)
+            accion = pedir_accion()
 
         elif accion == 2:
-            eliminarPKMN()
-            pedir_accion()
+            matriz = eliminarPKMN(matriz)
+            accion = pedir_accion()
 
         else:
             if accion == 3:
-                modificarPKMN()
-                pedir_accion()
+                matriz = modificarPKMN(matriz)
+                accion = pedir_accion()
 
             else:
-                verPKMN()
-                pedir_accion()
+                verPKMN(matriz)
+                accion = pedir_accion()
 
     print("¡Hasta la próxima!")
                 
