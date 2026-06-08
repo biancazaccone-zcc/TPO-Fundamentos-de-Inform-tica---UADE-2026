@@ -100,12 +100,42 @@ def agregarPKMN():
     matriz.append([nombre, tipo, nivel, pc, entrenador, victorias, estado])
 
 def eliminarPKMN():
-    liberar=[]
-    for filas in matriz:
-        if filas[6]=="Liberado":
-            liberar.append(matriz[i]) #revisa toda la matriz, busca los pokemon liberados y los mete en una lista aparte
-    print("Estos son los Pokémon que pueden eliminarse: ", liberar) #acá están los pokemon que se pueden eliminar
-    print("en desarrollo")
+    global matriz
+    
+    eliminables = []
+    
+    for fila in matriz:
+        if fila[6] == "liberado":
+            eliminables.append(fila) #revisa toda la matriz, busca los pokemon liberados y los mete en la lista de pokémons a los que se puede eliminar
+
+    if len(eliminables) == 0:
+        print("NO hay pokémons eliminables, tienen que estar liberados para realizar esta acción")
+        return
+
+    else:
+        opciones = {}
+        print("Lista de opciones:")
+        
+        i = 1
+        for ELIM in eliminables:
+            opciones[i] = ELIM
+            print(i,".",ELIM)
+            i += 1
+
+        opciones[i] = "Ninguno"
+        print(i,"Ninguno")
+
+        accion = int(input("Ingresar pokémon a eliminar: "))
+        
+        while accion < 0 or accion > i:
+            print("La opción no existe.")
+            accion = int(input("Ingresar pokémon a eliminar: "))
+
+        if accion == i:        # En caso de elegir la última opción (siempre va a ser "Ninguno") se vuelve al menú principal
+            return
+
+        else:
+            matriz.remove(opciones[accion])
 
 def modificarPKMN():
     print("en desarrollo")
