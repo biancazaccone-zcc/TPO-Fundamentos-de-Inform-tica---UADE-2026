@@ -145,6 +145,7 @@ def eliminarPKMN(matriz):
     else:
         opciones = []
         print("Lista de opciones:")
+        print(" ")
         
         for ELIM in eliminables:
             print(ELIM[0])
