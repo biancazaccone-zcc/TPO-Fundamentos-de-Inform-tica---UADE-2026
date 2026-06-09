@@ -63,7 +63,7 @@ def agregarPKMN(matriz):
     tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨random¨): "))
     tipo.lower()
 
-    if tipo = "random":
+    if tipo == "random":
         tipo = random.choice(tipos_posibles)
 
     else:
@@ -76,7 +76,7 @@ def agregarPKMN(matriz):
     # Se pide NIVEL
     nivel = input("Nivel actual (para valor aleatorio escribir ¨random¨): ")
     
-    if nivel = "random":
+    if nivel == "random":
         nivel = random.randint(1, 100)
 
     else:
@@ -104,7 +104,7 @@ def agregarPKMN(matriz):
     # Se pide CANTIDAD DE VICTORIAS
     victorias = input("Cantidad de batallas ganadas (para valor aleatorio escribir ¨random¨): ")
     
-    if victorias = "random":
+    if victorias == "random":
         victorias = random.randint(0, 5000)
 
     else:
@@ -157,7 +157,7 @@ def eliminarPKMN(matriz):
             print("Esa acción no es posible")
             accion = int(input("Ingresar nombre de pokémon a eliminar: "))
 
-        if accion = "Ninguno":
+        if accion == "Ninguno":
             return matriz
         else:
             for pokemon in matriz[1:]:
@@ -205,7 +205,7 @@ def modificarPKMN(matriz):
     else:
         elecciones_posibles = {}
         
-        while pokemon not in opciones:
+        while pokemon not in opciones_pokemon:
             print("la opción elegida no existe")
             print("Las opciones para modificar son las siguientes:")
             print(" ")
@@ -216,7 +216,7 @@ def modificarPKMN(matriz):
         print(" ")
         
         i = 1
-        for POKE in opciones:
+        for POKE in opciones_pokemon:
             print(f"{i}.{POKE}")
             elecciones_posibles[i] == POKE
             i += 1
