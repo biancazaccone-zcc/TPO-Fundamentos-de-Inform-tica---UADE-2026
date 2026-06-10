@@ -60,10 +60,10 @@ def pedir_nombre(matriz):
 def pedir_tipo(matriz):
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
 
-    tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨random¨): "))
+    tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨-1¨): "))
     tipo.lower()
 
-    if tipo == "random":
+    if tipo == "-1":
         tipo = random.choice(tipos_posibles)
 
     else:
@@ -77,23 +77,23 @@ def pedir_tipo(matriz):
 
 def pedir_nivel(matriz):
 
-    nivel = input("Nivel actual (para valor aleatorio escribir ¨random¨): ")
+    nivel = int(input("Nivel actual (para valor aleatorio escribir ¨-1¨): "))
     
-    if nivel == "random":
+    if nivel == -1:
         nivel = random.randint(1, 100)
 
     else:
         while nivel < 1 or nivel > 100:
-            print("El nivel ingresado no es posible, ingresar correctamente.")
+            print("El nivel ingresado no es posible, debe estar entre 1 y 100.")
             nivel = int(input("Nivel actual: "))
 
     return nivel
 
 def pedir_pc(matriz):
 
-    pc = input("Puntos de combate (para valor aleatorio escribir ¨random¨): ")
+    pc = int(input("Puntos de combate (para valor aleatorio escribir ¨-1¨): "))
 
-    if pc == "random":
+    if pc == -1:
         pc = random.randint(1, 6000)
 
     else:
@@ -114,9 +114,9 @@ def pedir_nombre_entrenador(matriz):
 
 def pedir_victorias(matriz):
 
-    victorias = input("Cantidad de batallas ganadas (para valor aleatorio escribir ¨random¨): ")
+    victorias = int(input("Cantidad de batallas ganadas (para valor aleatorio escribir ¨-1¨): "))
     
-    if victorias == "random":
+    if victorias == -1:
         victorias = random.randint(0, 5000)
 
     else:
@@ -129,10 +129,10 @@ def pedir_victorias(matriz):
 def pedir_estado(matriz):
     estados_posibles = ("disponible", "entrenamiento", "lesionado", "liberado")
 
-    estado = str(input("Estado actual (para valor aleatorio escribir ¨random¨): "))
+    estado = str(input("Estado actual (para valor aleatorio escribir ¨-1¨): "))
     estado.lower()
 
-    if estado == "random":
+    if estado == "-1":
         estado = random.choice(estados_posibles)
 
     else:
@@ -193,10 +193,10 @@ def eliminarPKMN(matriz):
         print("Ninguno")
         opciones.append("Ninguno")
             
-        accion = int(input("Ingresar nombre de pokémon a eliminar: "))
+        accion = str(input("Ingresar nombre de pokémon a eliminar: "))
         while accion not in opciones:
             print("Esa acción no es posible")
-            accion = int(input("Ingresar nombre de pokémon a eliminar: "))
+            accion = str(input("Ingresar nombre de pokémon a eliminar: "))
 
         if accion == "Ninguno":
             return matriz
