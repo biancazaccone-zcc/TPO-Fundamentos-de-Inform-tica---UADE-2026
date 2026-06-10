@@ -247,7 +247,8 @@ def modificarPKMN(matriz):
     pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
 
     while pokemon not in opciones_pokemon:
-            print("la opción elegida no eiste")
+            print("la opción elegida no existe")
+            print(" ")
             pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
 
     if pokemon == "Ninguno":
