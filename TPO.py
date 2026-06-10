@@ -1,5 +1,7 @@
 import random
 
+# ---------------------------------------- SUBFUNCIONES ---------------------------------------------------------------------------
+
 def mostrar_menu():
     print("--------------------------")
     print(" ")
@@ -142,6 +144,10 @@ def pedir_estado(matriz):
             estado = str(input("Estado actual: "))
             estado.lower()
 
+# ---------------------------------------- SUBFUNCIONES ---------------------------------------------------------------------------
+
+# ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
+    
     return estado
 
 def agregarPKMN(matriz):
@@ -257,6 +263,8 @@ def modificarPKMN(matriz):
                 matriz = agregarPKMN(matriz)
 
                 return matriz
+
+# ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
 
 def main():
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
