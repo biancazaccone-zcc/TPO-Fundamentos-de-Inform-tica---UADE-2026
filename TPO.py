@@ -44,12 +44,8 @@ def mostrar_estados():
     print("· Liberado")
     print(" ")
 
-def agregarPKMN(matriz):
-    
-    tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
-    estados_posibles = ("disponible", "entrenamiento", "lesionado", "liberado")
-    
-    # Se pide NOMBRE
+def pedir_nombre(matriz):
+
     nombre = str(input("Nombre del pokémon: "))
     while not nombre.strip():                # Se revisa que el nombre tenga contenido y no sea solo una entrada vacía
         print("El pokémon debe tener nombre.")
@@ -59,7 +55,11 @@ def agregarPKMN(matriz):
             print("Ya hay un pokémon con este nombre, elija otro")
             nombre = str(input("Nombre del pokémon: "))
 
-    # Se pide TIPO
+    return nombre
+
+def pedir_tipo(matriz):
+    tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
+
     tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨random¨): "))
     tipo.lower()
 
@@ -73,7 +73,10 @@ def agregarPKMN(matriz):
             tipo = str(input("Tipo elemental: "))
             tipo.lower()
 
-    # Se pide NIVEL
+    return tipo
+
+def pedir_nivel(matriz):
+
     nivel = input("Nivel actual (para valor aleatorio escribir ¨random¨): ")
     
     if nivel == "random":
@@ -84,7 +87,10 @@ def agregarPKMN(matriz):
             print("El nivel ingresado no es posible, ingresar correctamente.")
             nivel = int(input("Nivel actual: "))
 
-    # Se pide PUNTOS DE COMBATE
+    return nivel
+
+def pedir_pc(matriz):
+
     pc = input("Puntos de combate (para valor aleatorio escribir ¨random¨): ")
 
     if pc == "random":
@@ -95,13 +101,19 @@ def agregarPKMN(matriz):
             print("Los puntos de combate no pueden ser negativos, ingresar correctamente.")
             pc = int(input("Puntos de combate: "))
 
-    # Se pide NOMBRE DEL ENTRENADOR
+    return pc
+
+def pedir_nombre_entrenador(matriz):
+
     entrenador = str(input("Entrenador: "))
     while not entrenador.strip():
         print("El entrenador debe tener nombre.")
         entrenador = str(input("Entrenador: "))
 
-    # Se pide CANTIDAD DE VICTORIAS
+    return entrenador
+
+def pedir_victorias(matriz):
+
     victorias = input("Cantidad de batallas ganadas (para valor aleatorio escribir ¨random¨): ")
     
     if victorias == "random":
@@ -112,7 +124,11 @@ def agregarPKMN(matriz):
             print("El numero de victorias es imposible, ingresar correctamente.")
             victorias = int(input("Cantidad de batallas ganadas: "))
 
-    # Se pide ESTADO
+    return victorias
+
+def pedir_estado(matriz):
+    estados_posibles = ("disponible", "entrenamiento", "lesionado", "liberado")
+
     estado = str(input("Estado actual (para valor aleatorio escribir ¨random¨): "))
     estado.lower()
 
@@ -125,6 +141,31 @@ def agregarPKMN(matriz):
             mostrar_estados()
             estado = str(input("Estado actual: "))
             estado.lower()
+
+    return estado
+
+def agregarPKMN(matriz):
+    
+    # Se pide NOMBRE
+    nombre = pedir_nombre(matriz)
+
+    # Se pide TIPO
+    tipo = pedir_tipo(matriz)
+
+    # Se pide NIVEL
+    nivel = pedir_nivel(matriz)
+
+    # Se pide PUNTOS DE COMBATE
+    pc = pedir_pc(matriz)
+
+    # Se pide NOMBRE DEL ENTRENADOR
+    entrenador = pedir_nombre_entrenador(matriz)
+
+    # Se pide CANTIDAD DE VICTORIAS
+    victorias = pedir_victorias(matriz)
+
+    # Se pide ESTADO
+    estado = pedir_estado(matriz)
 
     # Agregamos el pokémon a la matriz de datos
     matriz.append([nombre, tipo, nivel, pc, entrenador, victorias, estado])
@@ -145,7 +186,6 @@ def eliminarPKMN(matriz):
     else:
         opciones = []
         print("Lista de opciones:")
-        print(" ")
         
         for ELIM in eliminables:
             print(ELIM[0])
@@ -200,40 +240,22 @@ def modificarPKMN(matriz):
     
     pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
 
+    while pokemon not in opciones_pokemon:
+            print("la opción elegida no eiste")
+            pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
+
     if pokemon == "Ninguno":
         return matriz
 
     else:
-        elecciones_posibles = {}
-        
-        while pokemon not in opciones_pokemon:
-            print("la opción elegida no existe")
-            print("Las opciones para modificar son las siguientes:")
-            print(" ")
-            verPKMN(matriz)
-            pokemon = str(input("Ingresar nombre del pokémon a modificar: "))
 
-        print("Las opciones para cambiar son las siguientes:")
-        print(" ")
-        
-        i = 1
-        for POKE in opciones_pokemon:
-            print(f"{i}.{POKE}")
-            elecciones_posibles[i] == POKE
-            i += 1
-        print(" ")
-        
-        eleccion = int(input("Ingresar elección de dato a modificar: "))
-        
-        while eleccion not in elecciones_posibles.keys:
-            print("La elección hecha no existe")
-            eleccion = int(input("Ingresar elección de dato a modificar: "))
+        for fila in matriz[1:]:
+            if fila[0] == pokemon:
+                matriz.remove(fila)
+                print("Ingresar los nuevos datos del pokemon")
+                print(" ")
+                matriz = agregarPKMN(matriz)
 
-        pokemon_elegido = elecciones_posibles[eleccion]
-
-        for pokemon in matriz[0:]:
-            if pokemon[0] == pokemon_elegido:
-                matriz.remove(pokemon)
         return matriz
 
 def main():
