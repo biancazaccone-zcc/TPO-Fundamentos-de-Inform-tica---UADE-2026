@@ -256,7 +256,7 @@ def modificarPKMN(matriz):
                 print(" ")
                 matriz = agregarPKMN(matriz)
 
-        return matriz
+                return matriz
 
 def main():
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
