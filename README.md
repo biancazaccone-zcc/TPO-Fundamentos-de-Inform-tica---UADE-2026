@@ -6,5 +6,3 @@ con valores aleatorios de puntos de combate y victorias, ya que en caso de agreg
 los datos de un pokémon lo que hace es eliminar de la matriz el pokémon elegido para agregarlo nuevamente con los nuevos datos ingresados. Solo permite eliminar un
 pokémon si el mismo está en estado liberado, de no haber ningún pokémon con esta característica solo imprime un mensaje informando que no hay pokémons que cumplan con
 lo necesario para ser eliminados.
-
-URL del github: https://github.com/biancazaccone-zcc/TPO-Fundamentos-de-Inform-tica---UADE-2026
