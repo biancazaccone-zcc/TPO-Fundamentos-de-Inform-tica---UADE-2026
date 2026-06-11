@@ -143,12 +143,12 @@ def pedir_estado(matriz):
             mostrar_estados()
             estado = str(input("Estado actual: "))
             estado.lower()
+    return estado
 
 # ---------------------------------------- SUBFUNCIONES ---------------------------------------------------------------------------
+# Todas las subfunciones fueron hechas por Héctor Navarro
 
 # ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
-    
-    return estado
 
 def agregarPKMN(matriz):
     
@@ -266,6 +266,9 @@ def modificarPKMN(matriz):
                 return matriz
 
 # ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
+# La función agregarPKMN fue hecha por Carlos Wang y Héctor Navarro
+# La función EliminarPKMN fue hecha por Bianca Zaccone y Héctor Navarro
+# El resto de las funciones fueron hechas por Héctor Navarro
 
 def main():
     matriz = [["Pokemon", "Tipo", "Nivel", "Puntos de combate", "Entrenador/a", "Batallas ganadas", "Estado"]]     #definimos los encabezados de la matriz
