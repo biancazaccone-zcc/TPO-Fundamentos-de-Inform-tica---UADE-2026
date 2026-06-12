@@ -157,7 +157,9 @@ def pedir_estado(matriz):
     return estado
 
 # ---------------------------------------- SUBFUNCIONES ---------------------------------------------------------------------------
-# Todas las subfunciones fueron hechas por Héctor Navarro
+# Subfuncion "pedir_tipo" hecha por Héctor Navarro y Bianca Zaccone
+# La subfunción "eliminar" fue hecha por Bianca Zaccone
+# Todas las demás subfunciones fueron hechas por Héctor Navarro
 
 # ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
 
