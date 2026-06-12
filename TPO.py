@@ -78,6 +78,7 @@ def existe(tipo):
         print("El tipo no existe.")
 
 def pedir_tipo(matriz):
+    tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
     tipo = input("Tipo elemental (para valor aleatorio escribir ¨-1¨): ")
     if tipo == "-1":
         tipo = random.choice(tipos_posibles)
