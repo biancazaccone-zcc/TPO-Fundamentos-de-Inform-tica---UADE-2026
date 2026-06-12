@@ -58,22 +58,32 @@ def pedir_nombre(matriz):
             nombre = str(input("Nombre del pokémon: "))
 
     return nombre
-
-def pedir_tipo(matriz):
+    
+def existe(tipo):
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
-
-    tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨-1¨): "))
     tipo.lower()
 
+    i=0
+    encontrado = False
+    while i <len(tipos_posibles) and encontrado == False:
+  
+        if tipos_posibles[i] == tipo:
+        
+            encontrado = True
+        i+=1
+
+    if encontrado:
+        return(tipos_posibles[i])
+    else:
+        print("El tipo no existe.")
+
+def pedir_tipo(matriz):
+    tipo = input("Tipo elemental (para valor aleatorio escribir ¨-1¨): ")
     if tipo == "-1":
         tipo = random.choice(tipos_posibles)
 
     else:
-        while tipo not in tipos_posibles:
-            print("El tipo no existe.")
-            mostrar_tipos()
-            tipo = str(input("Tipo elemental: "))
-            tipo.lower()
+        existe(tipo)
 
     return tipo
 
