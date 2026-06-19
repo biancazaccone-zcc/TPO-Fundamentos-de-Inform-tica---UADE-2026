@@ -58,33 +58,22 @@ def pedir_nombre(matriz):
             nombre = str(input("Nombre del pokémon: "))
 
     return nombre
-    
-def existe(tipo):
-    tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
-    tipo.lower()
-
-    i=0
-    encontrado = False
-    while i <len(tipos_posibles) and encontrado == False:
-  
-        if tipos_posibles[i] == tipo:
-        
-            encontrado = True
-        i+=1
-
-    if encontrado:
-        return(tipos_posibles[i])
-    else:
-        print("El tipo no existe.")
 
 def pedir_tipo(matriz):
     tipos_posibles = ("fuego", "agua", "planta", "electrico", "psiquico", "lucha", "roca", "fantasma", "dragon", "normal")
-    tipo = input("Tipo elemental (para valor aleatorio escribir ¨-1¨): ")
+
+    tipo = str(input("Tipo elemental (para valor aleatorio escribir ¨-1¨): "))
+    tipo.lower()
+
     if tipo == "-1":
         tipo = random.choice(tipos_posibles)
 
     else:
-        existe(tipo)
+        while tipo not in tipos_posibles:
+            print("El tipo no existe.")
+            mostrar_tipos()
+            tipo = str(input("Tipo elemental: "))
+            tipo.lower()
 
     return tipo
 
@@ -156,10 +145,26 @@ def pedir_estado(matriz):
             estado.lower()
     return estado
 
+def buscar_liberados(matriz):
+    eliminables = []
+
+    i = 0
+    for j in matriz:
+        if j[6] == "liberado":
+            eliminables.append(matriz[i][0])
+        i += 1
+    return eliminables
+
+def confirmar_elegido(opciones, elegido):
+    existente = False
+
+    for i in opciones:
+        if elegido == i:
+            existente = True
+    return existente
+
 # ---------------------------------------- SUBFUNCIONES ---------------------------------------------------------------------------
-# Subfuncion "pedir_tipo" hecha por Héctor Navarro y Bianca Zaccone
-# La subfunción "eliminar" fue hecha por Bianca Zaccone
-# Todas las demás subfunciones fueron hechas por Héctor Navarro
+# Todas las subfunciones fueron hechas por Héctor Navarro
 
 # ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
 
@@ -191,13 +196,8 @@ def agregarPKMN(matriz):
     return matriz
 
 def eliminarPKMN(matriz):
+    eliminables = buscar_liberados(matriz)
     
-    eliminables = []
-    
-    for fila in matriz:
-        if fila[6] == "liberado":
-            eliminables.append(fila) #revisa toda la matriz, busca los pokemon liberados y los mete en la lista de pokémons a los que se puede eliminar
-
     if len(eliminables) == 0:
         print("NO hay pokémons eliminables, tienen que estar liberados para realizar esta acción")
         return matriz
@@ -205,25 +205,30 @@ def eliminarPKMN(matriz):
     else:
         opciones = []
         print("Lista de opciones:")
+        print(" ")
         
         for ELIM in eliminables:
-            print(ELIM[0])
-            opciones.append(ELIM[0])
-        print("Ninguno")
+            opciones.append(ELIM)
+            print(ELIM)
         opciones.append("Ninguno")
+        print("Ninguno")
             
-        accion = str(input("Ingresar nombre de pokémon a eliminar: "))
-        while accion not in opciones:
-            print("Esa acción no es posible")
-            accion = str(input("Ingresar nombre de pokémon a eliminar: "))
+        pokemon_elegido = str(input("Ingresar nombre de pokémon a eliminar: "))
+        existe = confirmar_elegido(opciones, pokemon_elegido)
 
-        if accion == "Ninguno":
+        if not existe:
+            print("El pokémon no está en la lista de opciones")
+            print(" ")
             return matriz
+
         else:
-            for pokemon in matriz[1:]:
-                if pokemon[0] == accion:
-                    matriz.remove(pokemon)
-            return matriz
+            if pokemon_elegido == "Ninguno":
+                return matriz
+            else:
+                for pokemon in matriz[1:]:
+                    if pokemon[0] == pokemon_elegido:
+                        matriz.remove(pokemon)
+                return matriz
 
 def verPKMN(matriz):         # Esta sección fue hecha con ia para mostra el informe de pokémons más estéticamente, el método que usó la profesora en clase solo funciona con enteros, este funciona mezclando tipos de datos,
                              # se podría hacer de una manera más simple y que se haya visto en clase pero el reporte se vería menos ordenado.
@@ -250,33 +255,34 @@ def modificarPKMN(matriz):
     
     print("Las opciones para modificar son las siguientes:")
     print(" ")
-    verPKMN(matriz)
+ 
+    for pokemon in matriz[1:]:
+        opciones_pokemon.append(pokemon[0])
+        print(pokemon[0])
+    opciones_pokemon.append("Ninguno")
     print("Ninguno")
-
-    for fila in matriz[1:]:
-        opciones_pokemon.append(fila[0])
-        opciones_pokemon.append("Ninguno")
     
-    pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
+    pokemon_elegido = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
+    existe = confirmar_elegido(opciones_pokemon, pokemon_elegido)
 
-    while pokemon not in opciones_pokemon:
-            print("la opción elegida no existe")
-            print(" ")
-            pokemon = str(input("Ingresar nombre del pokémon a modificar o ¨Ninguno¨ para cancelar: "))
-
-    if pokemon == "Ninguno":
+    if not existe:
+        print("La opción elegida no existe")
+        print(" ")
         return matriz
-
+    
     else:
+        if pokemon_elegido == "Ninguno":
+            return matriz
 
-        for fila in matriz[1:]:
-            if fila[0] == pokemon:
-                matriz.remove(fila)
-                print("Ingresar los nuevos datos del pokemon")
-                print(" ")
-                matriz = agregarPKMN(matriz)
+        else:
+            for pokemon in matriz[1:]:
+                if pokemon[0] == pokemon_elegido:
+                    matriz.remove(pokemon)
+                    print("Ingresar los nuevos datos del pokemon")
+                    print(" ")
+                    matriz = agregarPKMN(matriz)
 
-                return matriz
+                    return matriz
 
 # ---------------------------------------- FUNCIONES ---------------------------------------------------------------------------
 # La función agregarPKMN fue hecha por Carlos Wang y Héctor Navarro
